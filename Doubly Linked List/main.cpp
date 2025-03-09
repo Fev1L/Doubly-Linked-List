@@ -65,8 +65,8 @@ bool add_after(const char* after) {
 
     while (n != nullptr) {
         if (strcmp(n->name, after) == 0) {
-            cout << after << " Знайдено!" << endl;
-            cout << "Введіть ім'я, що потрібно додати: ";
+            cout << after << " Found!" << endl;
+            cout << "Enter name you want to add: ";
             cin >> newname;
 
             List* list = new List;
@@ -85,13 +85,13 @@ bool add_after(const char* after) {
         }
         n = n->next;
     }
-    cout << "Не знайдено нікого!" << endl;
+    cout << "Element was not found!" << endl;
     return false;
 }
 
 void remove_element(const char* smbdy) {
     if (head == nullptr) {
-        cout << "Список порожній!" << endl;
+        cout << "List is empty!!" << endl;
         return;
     }
 
@@ -102,7 +102,7 @@ void remove_element(const char* smbdy) {
             if (n->prev != nullptr) {
                 n->prev->next = n->next;
             } else {
-                head = n->next; // Якщо це був перший елемент
+                head = n->next;
             }
 
             if (n->next != nullptr) {
@@ -110,18 +110,18 @@ void remove_element(const char* smbdy) {
             }
 
             delete n;
-            cout << smbdy << " видалено!" << endl;
+            cout << smbdy << " deleted!" << endl;
             return;
         }
         n = n->next;
     }
 
-    cout << "Елемент не знайдено!" << endl;
+    cout << "Element was not found!" << endl;
 }
 
 void print_all() {
     if (head == nullptr) {
-        cout << "Список порожній!" << endl;
+        cout << "List is empty!!" << endl;
         return;
     }
 
@@ -149,12 +149,12 @@ void search(const char* name) {
     }
 
     if (!found) {
-        cout << "Не знайдено нікого!" << endl;
+        cout << "Element was not found!" << endl;
     }
 }
 void remove_last(){
     if (head == nullptr) {
-        cout << "Список порожній!" << endl;
+        cout << "List is empty!!" << endl;
         return;
     }
 
@@ -163,7 +163,7 @@ void remove_last(){
     if (head->next == nullptr) {
         delete head;
         head = nullptr;
-        cout << "Останній елемент видалено!" << endl;
+        cout << "Last element was deleted!" << endl;
         return;
     }
 
@@ -174,11 +174,11 @@ void remove_last(){
     n->prev->next = nullptr;
 
     delete n;
-    cout << "Останній елемент видалено!" << endl;
+    cout << "Last element was deleted!" << endl;
 }
 void reverse_list(){
     if (head == nullptr) {
-        cout << "Список порожній!" << endl;
+        cout << "List is empty!!" << endl;
         return;
     }
 
@@ -196,11 +196,11 @@ void reverse_list(){
         head = temp->prev;
     }
 
-    cout << "Список успішно розвернуто!" << endl;
+    cout << "List was successfully deployed!" << endl;
 }
 void remove_by_letter(char letter){
     if (head == nullptr) {
-        cout << "Список порожній!" << endl;
+        cout << "List is empty!!" << endl;
         return;
     }
 
@@ -228,7 +228,57 @@ void remove_by_letter(char letter){
         n = nextNode;
     }
 
-    cout << "Всі елементи, що починаються на '" << letter << "', видалено!" << endl;
+    cout << "All elements that starts '" << letter << "', deleted!" << endl;
+}
+void insert_element(const char* smbdy){
+    if (head == nullptr) {
+        cout << "List is empty!" << endl;
+        return;
+    }
+
+    char newname[30];
+    List* n = head;
+
+    while (n != nullptr) {
+        if (strcmp(n->name, smbdy) == 0) {
+            List* nextNode = n->next;
+            if (n->prev != nullptr) {
+                n->prev->next = n->next;
+            } else {
+                head = n->next;
+            }
+
+            if (n->next != nullptr) {
+                n->next->prev = n->prev;
+            }
+
+            delete n;
+
+            cout << "Enter name you want to add?: ";
+            cin >> newname;
+
+            List* list = new List;
+            strncpy(list->name, newname, sizeof(list->name) - 1);
+            list->name[sizeof(list->name) - 1] = '\0';
+
+            list->next = nextNode;
+            list->prev = n->prev;
+
+            if (nextNode != nullptr) {
+                nextNode->prev = list;
+            }
+
+            if (n->prev != nullptr) {
+                n->prev->next = list;
+            }
+
+            cout << "Element aded!" << endl;
+            return;
+        }
+        n = n->next;
+    }
+
+    cout << "Element was not found!" << endl;
 }
 int main() {
     CreateList();
@@ -244,7 +294,7 @@ int main() {
 
     print_all();
     do{
-        cout<<"Type comand you want to use[stop, search, add, remove, remove_last, reverse_list, remove_by_letter]: "<<endl;
+        cout<<"Type comand you want to use[stop, search, insert, add, remove, remove_last, reverse_list, remove_by_letter]: "<<endl;
         cin>>answear;
         if(answear == "stop"){
             exit(0);
@@ -278,6 +328,14 @@ int main() {
             cin>>ans;
             remove_by_letter(ans);
             print_all();
+        }else if(answear == "insert"){
+            cout << "Who you want do insert?: " << endl;
+            char ans[30];
+            cin>>ans;
+            insert_element(ans);
+            print_all();
+        }else{
+            cout<<"Not valid comand!"<<endl;
         }
     }while(end == false);
 
