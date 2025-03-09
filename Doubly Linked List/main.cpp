@@ -254,7 +254,7 @@ void insert_element(const char* smbdy){
 
             delete n;
 
-            cout << "Enter name you want to add?: ";
+            cout << "Введіть ім'я, що потрібно додати: ";
             cin >> newname;
 
             List* list = new List;
@@ -270,6 +270,10 @@ void insert_element(const char* smbdy){
 
             if (n->prev != nullptr) {
                 n->prev->next = list;
+            }
+
+            if (n->prev == nullptr) {
+                head = list;
             }
 
             cout << "Element aded!" << endl;
