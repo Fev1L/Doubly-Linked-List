@@ -42,9 +42,6 @@ This project implements a doubly linked list in C++. A Doubly Linked List is a d
 ### Feedback
 If you have any ideas or suggestions for improving the project, feel free to open a new Issue or make a Pull Request.
 
-### License
-This project is distributed under the MIT license.
-
 ---
 **Author**: [Fev1L](https://github.com/Fev1L)
 
